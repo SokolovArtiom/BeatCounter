@@ -1,0 +1,22 @@
+import librosa
+import matplotlib.pyplot as plt
+from librosa import display
+import numpy as np
+
+y, sr = librosa.load(librosa.util.example_audio_file())
+
+plt.figure(figsize=(10, 8))
+D = librosa.amplitude_to_db(librosa.stft(y))
+plt.subplot(1, 1, 1)
+
+librosa.display.specshow(D, y_axis='linear')
+plt.colorbar(format='%+2.0f dB')                                              #Вывод спектрограммы
+plt.title('Linear-frequency power spectrogram')
+
+#chroma = librosa.feature.chroma_cqt(y=y, sr=sr)
+#librosa.display.specshow(chroma, x_axis='time', y_axis='chroma')             #Вывод хроматического графика
+#plt.colorbar()
+
+#librosa.display.waveplot (y, sr)
+#plt.colorbar(format='%+2.0f dB')                                             #Вывод графика (Db/sec)
+#plt.title('Linear-frequency power spectrogram')
