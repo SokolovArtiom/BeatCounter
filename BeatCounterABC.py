@@ -46,35 +46,42 @@ EPB=60/BPM *13500
 n=2
 d=4
 
+print('X:0')
+print('M:',n,'/',d,sep="")
+print('L:1/1')
+print('K:C')
+
 count=0.0
 for i in dur:
     if i>EPB-3100 and i<EPB+3100:
-        print(1,"/",d)
+        print("B/",d,sep="",end=" ")
         count = count + 1/d
     if i>(EPB/2)-1555 and i<(EPB/2)+3100:
-        print(1,"/",2*d)
+        print("B/",(2*d),sep="",end=" ")
         count = count + 1/(2*d)
     if i>(EPB/4)-2500 and i<(EPB/4)+1555:
-        print(1,"/",4*d)
+        print("B/",(4*d),sep="",end=" ")
+        count = count + 1/(4*d)
     if count==n/d:
-        print("-------")
+        print("|",end=" ")
         count=0
-        
+ 
+       
 if count!=0:
     rem=(n/d)-count
     if rem==0.25:
-        print(1,"/",4)
+        print("B/",4,'||',sep="")
     if rem==0.125:
-        print(1,"/",8)
-    if rem==0.625:
-        print(1,"/",16)
+        print("B/",8,'||',sep="")
+    if rem==0.0625:
+        print("B/",16,'||',sep="")
         
-plt.figure(figsize=(10, 8))
-D = librosa.amplitude_to_db(librosa.stft(y))
-plt.subplot(1, 1, 1)
+#plt.figure(figsize=(10, 8))
+#D = librosa.amplitude_to_db(librosa.stft(y))
+#plt.subplot(1, 1, 1)
 
-librosa.display.waveplot (y, sr)
-plt.title('Linear-frequency power spectrogram')
+#librosa.display.waveplot (y, sr)
+#plt.title('Linear-frequency power spectrogram')
 
 #y=y[100:10000]
 #print(y[:1000])
@@ -87,5 +94,4 @@ plt.title('Linear-frequency power spectrogram')
 #chroma = librosa.feature.chroma_cqt(y=y, sr=sr)
 #librosa.display.specshow(chroma, x_axis='time', y_axis='chroma')
 #plt.colorbar()
-
 
