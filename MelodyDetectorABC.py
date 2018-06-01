@@ -130,17 +130,3 @@ if rem==0.125:
     print("/",8,'||',sep="")
 if rem==0.0625:
     print("/",16,'||',sep="")
-        
-#plt.figure(figsize=(10, 8))
-#D = librosa.amplitude_to_db(librosa.stft(y))
-#plt.subplot(1, 1, 1)
-
-#librosa.display.waveplot (y, sr)   
-
-#librosa.display.specshow(D, y_axis='linear')
-#plt.colorbar(format='%+2.0f dB')
-#plt.title('Linear-frequency power spectrogram')
-
-#chroma = librosa.feature.chroma_cqt(y=y, sr=sr)
-#librosa.display.specshow(chroma, x_axis='time', y_axis='chroma')
-#plt.colorbar()
