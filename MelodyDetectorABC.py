@@ -3,12 +3,8 @@ import matplotlib.pyplot as plt
 from librosa import display
 import numpy as np
 
-#path = 'cymbals.ogg'
-#path='The blister exists.ogg'
-path='Triad3.ogg'
+path='SW3.ogg'
 y, sr = librosa.load(path)
-
-#y=y[0:280000]  #Test1 dx = 1000 BPM = 65
 
 count=0
 for i in y:
@@ -29,12 +25,17 @@ dur=np.zeros(100)
 maximum=0
 count=0
 for i in ns:
-    if i>1000 and i<AmpAbZer.size-1000:
-        if AmpAbZer[i]>=max(AmpAbZer[i-1000:i+1000]) and AmpAbZer[i]>0.045:   #!!
+    if i<=1500:
+        if AmpAbZer[i]>=max(AmpAbZer[0:1500]) and AmpAbZer[i]>0.03:
             dur[count]=i
             count=count+1
             maximum=maximum+1
-            
+    if i>1500 and i<AmpAbZer.size-1500:
+        if AmpAbZer[i]>=max(AmpAbZer[i-1500:i+1500]) and AmpAbZer[i]>0.03:
+            dur[count]=i
+            count=count+1
+            maximum=maximum+1
+
 dur=dur[1:maximum:1]-dur[0:maximum-1:1]
 
 
@@ -42,22 +43,21 @@ AmpAbZer=y
 D = librosa.amplitude_to_db(librosa.stft(y))
 Time2=D.shape[1]
 t=0
-fr=48
+fr=49
 freq=np.empty(Time2)
         
 while t<Time2:
-    fr=48
+    fr=49
     while fr<100:
-        if D[fr][t]==max(D[48:100,t]):
+        if D[fr][t]==max(D[49:100,t]):
             freq[t-1]=fr
             break
         fr=fr+1
     t=t+1
 
-
 BPM=60
 EPB=60/BPM *13500
-n=2
+n=4
 d=4
 
 print('X:0')
@@ -70,25 +70,25 @@ count=0.0
 Time1=AmpAbZer.shape
 
 for i in dur:
-    t = t + i
+    t = t + 1.7*i
     NewTime=t/Time1*Time2
     NewTime=int(NewTime)
     note=freq[NewTime+1]
-    t = t - i + 2*i
-    if note > 45 and note <= 50:
-        print("c",sep="",end="")
-    if note > 50 and note <= 55:
-        print("d",sep="",end="")
-    if note > 55 and note <= 61:
-        print("e",sep="",end="")
-    if note > 61 and note <= 70:
-        print("f",sep="",end="")
-    if note > 70 and note <= 75:
-        print("g",sep="",end="")
-    if note > 75 and note <= 85:
-        print("a",sep="",end="")
+    t = t - 1.7*i + 2*i
+    if note > 45 and note <= 52:
+        print("C",sep="",end="")
+    if note > 52 and note <= 58:
+        print("D",sep="",end="")
+    if note > 58 and note <= 63:
+        print("E",sep="",end="")
+    if note > 63 and note <= 68:
+        print("F",sep="",end="")
+    if note > 68 and note <= 76:
+        print("G",sep="",end="")
+    if note > 76 and note <= 85:
+        print("A",sep="",end="")
     if note > 85 and note <= 95:
-        print("b",sep="",end="")
+        print("B",sep="",end="")
     
     if i>EPB-4500 and i<EPB+3100:
         print("/",d,sep="",end=" ")
@@ -105,21 +105,21 @@ for i in dur:
  
 NewTime=t/Time1*Time2
 NewTime=int(NewTime)
-note=freq[NewTime+10]
+note=freq[NewTime+20]
 if note > 45 and note <= 50:
-    print("c",sep="",end="")
+    print("C",sep="",end="")
 if note > 50 and note <= 55:
-    print("d",sep="",end="")
+    print("D",sep="",end="")
 if note > 55 and note <= 61:
-    print("e",sep="",end="")
+    print("E",sep="",end="")
 if note > 61 and note <= 70:
-    print("f",sep="",end="")
+    print("F",sep="",end="")
 if note > 70 and note <= 75:
-    print("g",sep="",end="")
+    print("G",sep="",end="")
 if note > 75 and note <= 85:
-    print("a",sep="",end="")
+    print("A",sep="",end="")
 if note > 85 and note <= 95:
-    print("b",sep="",end="")
+    print("B",sep="",end="")
      
 rem=(n/d)-count
 if rem==n/d:
@@ -135,8 +135,7 @@ if rem==0.0625:
 #D = librosa.amplitude_to_db(librosa.stft(y))
 #plt.subplot(1, 1, 1)
 
-#librosa.display.waveplot (y, sr)
-#plt.title('Linear-frequency power spectrogram')   
+#librosa.display.waveplot (y, sr)   
 
 #librosa.display.specshow(D, y_axis='linear')
 #plt.colorbar(format='%+2.0f dB')
@@ -144,4 +143,4 @@ if rem==0.0625:
 
 #chroma = librosa.feature.chroma_cqt(y=y, sr=sr)
 #librosa.display.specshow(chroma, x_axis='time', y_axis='chroma')
-#plt.colorbar()'''
+#plt.colorbar()
