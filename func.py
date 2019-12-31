@@ -44,7 +44,7 @@ def freqences(FFTArr):
     model.add(Dense(219, init="normal", activation="sigmoid"))
     model.add(Dense(27, init="normal", activation="softmax"))
     model.compile(loss="categorical_crossentropy", optimizer="SGD", metrics=["accuracy"])
-    model.load_weights("mnist_model.h5")
+    model.load_weights("model.h5")
 
     FFTArr=FFTArr.reshape(FFTArr.size, order='F')
     FFTArr=FFTArr.reshape((int(FFTArr.size/1025),1025))
